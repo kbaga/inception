@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y  php8.4\
 	bash wget \
 	&& rm -rf /var/lib/apt/lists/*
 
+COPY conf/www.conf /etc/php/8.4/fpm/pool.d/www.conf
+
 RUN mkdir -p /run/php /var/www/html
 
 RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /tmp && \
@@ -24,7 +26,9 @@ rm -rf /tmp/wordpress*
 #RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
 RUN chown -R www-data:www-data /var/www/html
 
-RUN sed -i 's|^`listen = .*|listen = 9000|' /etc/php/*/fpm/pool.d/www.conf
+RUN sed -i 's|^`listen *=.*|listen = 9000|' /etc/php/8.4/fpm/pool.d/www.conf
+
+RUN sed -i 's|^;listen.allowed_clients =.*|listen.allowed_clients = 0.0.0.0|' /etc/php/8.4/fpm/pool.d/www.conf
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 chmod +x wp-cli.phar && \

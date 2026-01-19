@@ -25,7 +25,12 @@ if [ ! -f "wp-config.php" ]; then
 		--dbname="${MYSQL_DATABASE}" \
 		--dbuser="${MYSQL_USER}" \
 		--dbpass="${MYSQL_PASSWORD}" \
-		--dbhost="${MYSQL_HOST}" 
+		--dbhost="${MYSQL_HOST}" \
+		--skip-check \
+		--force
+
+	wp config set WP_HOME "https://localhost:4443" --type=constant --allow-root
+	wp config set WP_SITEURL "https://localhost:4443" --type=constant --allow-root
 	
 	echo " Installing Wordpress..."
 	wp core install \

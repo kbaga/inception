@@ -19,10 +19,13 @@ RUN openssl req -x509 -nodes -days 365 \
 	-out /etc/nginx/ssl/inception.crt \
 	-subj "/C=CH/ST=GENEVA/L=GENEVA/O=42/OU=Student/CN=kbaga42.42.fr/UID=kbaga42"
 
+RUN chmod 644 /etc/nginx/ssl/inception.key \
+ && chmod 644 /etc/nginx/ssl/inception.crt
+
 RUN mkdir -p /var/run/nginx
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-#COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
 
 RUN chmod 755 /var/www/html
 RUN chown -R www-data:www-data /var/www/html

@@ -35,7 +35,6 @@ services:
       - wordpress
     volumes:
       - wordpress_data:/var/www/html
-      - ./requirements/nginx/conf:/etc/nginx/conf.d
     extra_hosts:
       - "kbaga42.42.fr:127.0.0.1"
     networks:

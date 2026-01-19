@@ -25,7 +25,7 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	fi
 			       
 	echo "MariaDB is ready, configurin initial users..."
-	mysql -u root <<-EOSQL
+mysql -u root <<-EOSQL
 CREATE DATABABSE IF NOT EXISTS ${MYSQL_DATABASE};
 CREATE USER IF NOT EXISTS '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';
 GRANT ALL PRVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
