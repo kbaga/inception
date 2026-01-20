@@ -30,13 +30,11 @@ services:
     build: ./requirements/nginx
     container_name: nginx
     ports:
-      - "4443:443"
+      - "443:443"
     depends_on:
       - wordpress
     volumes:
       - wordpress_data:/var/www/html
-    extra_hosts:
-      - "kbaga42.42.fr:127.0.0.1"
     networks:
       - inception
 
@@ -46,5 +44,15 @@ networks:
   
 volumes :
     mariadb_data:
+      driver: local
+      driver_opts:
+        type: none
+        device: /home/kbaga42/data/mariadb
+        o: bind
     wordpress_data:
+      driver: local
+      driver_opts:
+        type: none
+        device: /home/kbaga42/data/wordpress
+        o: bind
 
